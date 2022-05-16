@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DataAccess.Models.Patient>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h3>Patients List</h3>
+@using (Html.BeginForm())
+{
+
+<label for="selectoption"> Filter by Clinic :</label>
+    @Html.DropDownList("SelectOption", new SelectList(ViewBag.clinics, "Id", "Name"), "Select")
+    <input type="submit" value="Search" />
+}
+
+<h5>Total Patients: @ViewBag.TotalPatients</h5>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            @Html.ActionLink("Date Of Birth", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+        </tr>
+    }
+
+</table>
